@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-     <style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aranjmaa Lkhamaa | Portfolio</title>
+  <style>
     body { font-family: system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 32px 20px; color: #172B2A; line-height: 1.6; background: #F3F6F5; }
     header { text-align: center; margin-bottom: 24px; }
-    .photo { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid #1E7466; }
-    .intro { color: #5F6E6A; max-width: 560px; margin: 0 auto; }
+    .photo { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; object-position: top; border: 4px solid #1E7466; }
+    header h1 { margin: 12px 0 4px; }
+    .role { color: #1E7466; font-weight: 600; margin: 0 0 12px; }
+    .intro { color: #5F6E6A; max-width: 560px; margin: 0 auto 10px; }
     section { background: #fff; padding: 22px 24px; border-radius: 14px; margin: 20px 0; }
     h2 { color: #1E7466; margin-top: 0; }
     .tags { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -12,21 +18,21 @@
     .project { border-top: 1px solid #E2E9E6; padding: 14px 0; }
     .project h3 { margin: 0 0 4px; }
     .project a { display: inline-block; margin: 6px 12px 0 0; color: #1E7466; font-weight: 600; }
+    .project a:hover { text-decoration: none; opacity: 0.8; }
+    a { color: #1E7466; }
     footer { text-align: center; color: #5F6E6A; font-size: 14px; margin-top: 30px; }
-        .project a:hover { text-decoration: none; opacity: 0.8; }
     @media (max-width: 600px) { body { padding: 20px 14px; } .photo { width: 110px; height: 110px; } }
-  </style> 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aranjmaa Lkhamaa | Portfolio</title>
+  </style>
 </head>
 <body>
   <header>
-    <h1>Aranjmaa Lkhamaa    <img src="photo.jpg" alt="Photo of Aranjmaa Lkhamaa" class="photo"></h1>
-    <p class="intro">I love yoga and I'm passionate about helping others find their inner peace through the practice. My other hobby is journaling. And I want to travel to Italy.</p>
+    <img src="photo.jpg" alt="Photo of Aranjmaa Lkhamaa" class="photo">
+    <h1>Aranjmaa Lkhamaa</h1>
+    <p class="role">Web Programming Student · Gachon University</p>
+    <p class="intro">I am a student at Gachon University learning web development with HTML, CSS, JavaScript and Git. I enjoy building simple, useful websites. Outside of class, I love yoga and journaling, and I hope to travel to Italy one day.</p>
     <p><a href="https://github.com/Lkhamaa552">GitHub: Lkhamaa552</a></p>
   </header>
+
   <main>
     <section>
       <h2>Skills &amp; Technologies</h2>
@@ -36,10 +42,12 @@
         <span>JavaScript</span>
         <span>Fetch API</span>
         <span>Git &amp; GitHub</span>
+        <span>GitHub Pages</span>
         <span>Web Accessibility</span>
       </div>
     </section>
-        <section>
+
+    <section>
       <h2>Course Projects</h2>
 
       <div class="project">
@@ -58,14 +66,15 @@
 
       <div class="project">
         <h3>Git &amp; Version Control</h3>
-        <p>My first repository, pushed with Git and published on GitHub Pages.</p>
+        <p>Git exercises with branches, merging and a custom 404 page, published on GitHub Pages.</p>
         <a href="https://lkhamaa552.github.io/webpro-w9/">View Live Site</a>
         <a href="https://github.com/Lkhamaa552/webpro-w9">View Repository</a>
       </div>
     </section>
-      <footer>
+  </main>
+
+  <footer>
     <p>© 2026 Aranjmaa Lkhamaa · Made for the Web Programming course</p>
   </footer>
-  </main>
 </body>
 </html>
