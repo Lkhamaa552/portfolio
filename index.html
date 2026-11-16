@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Aranjmaa Lkhamaa | Portfolio</title>
+
+  <!-- React + Babel (CDN), so React components work on GitHub Pages without a build step -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+
   <style>
     body { font-family: system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 32px 20px; color: #172B2A; line-height: 1.6; background: #F3F6F5; }
     header { text-align: center; margin-bottom: 24px; }
@@ -13,68 +19,188 @@
     .intro { color: #5F6E6A; max-width: 560px; margin: 0 auto 10px; }
     section { background: #fff; padding: 22px 24px; border-radius: 14px; margin: 20px 0; }
     h2 { color: #1E7466; margin-top: 0; }
+    a { color: #1E7466; }
+
+    /* Skills (React) */
     .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-    .tags span { background: #E8F2EF; color: #1E7466; padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: 14px; }
+    .tag { background: #E8F2EF; color: #1E7466; padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: 14px; border: 0; cursor: pointer; font-family: inherit; }
+    .tag[aria-pressed="true"] { background: #1E7466; color: #fff; }
+    .tag:focus-visible, .filter:focus-visible { outline: 3px solid #F5B642; outline-offset: 2px; }
+    .skill-note { margin: 14px 0 0; padding: 10px 14px; background: #F6FAF9; border-left: 4px solid #1E7466; border-radius: 6px; color: #33504C; font-size: 15px; }
+
+    /* Projects (React) */
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+    .filter { background: #fff; color: #1E7466; border: 1px solid #1E7466; padding: 5px 14px; border-radius: 999px; font-size: 14px; cursor: pointer; font-family: inherit; }
+    .filter.active { background: #1E7466; color: #fff; }
+    .count { color: #5F6E6A; font-size: 14px; margin: 8px 0 0; }
     .project { border-top: 1px solid #E2E9E6; padding: 14px 0; }
     .project h3 { margin: 0 0 4px; }
-    .project a { display: inline-block; margin: 6px 12px 0 0; color: #1E7466; font-weight: 600; }
+    .project p { margin: 0 0 6px; }
+    .stack { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0 0 4px; }
+    .stack li { font-size: 12px; background: #F1F5F4; color: #33504C; padding: 1px 8px; border-radius: 6px; }
+    .project a { display: inline-block; margin: 6px 12px 0 0; font-weight: 600; }
     .project a:hover { text-decoration: none; opacity: 0.8; }
-    a { color: #1E7466; }
+
     footer { text-align: center; color: #5F6E6A; font-size: 14px; margin-top: 30px; }
     @media (max-width: 600px) { body { padding: 20px 14px; } .photo { width: 110px; height: 110px; } }
   </style>
 </head>
 <body>
   <header>
-    <img src="photo.jpg" alt="Photo of Aranjmaa Lkhamaa" class="photo">
+    <img src="photo.jpg" alt="Photo of Aranjmaa Lkhamaa" class="photo" width="140" height="140">
     <h1>Aranjmaa Lkhamaa</h1>
     <p class="role">Web Programming Student · Gachon University</p>
-    <p class="intro">I am a student at Gachon University learning web development with HTML, CSS, JavaScript and Git. I enjoy building simple, useful websites. Outside of class, I love yoga and journaling, and I hope to travel to Italy one day.</p>
+    <p class="intro">I am a student at Gachon University learning web development with HTML, CSS, JavaScript, React and Git. I enjoy building simple, useful websites. Outside of class, I love yoga and journaling, and I hope to travel to Italy one day.</p>
     <p><a href="https://github.com/Lkhamaa552">GitHub: Lkhamaa552</a></p>
   </header>
 
-  <main>
-    <section>
-      <h2>Skills &amp; Technologies</h2>
-      <div class="tags">
-        <span>HTML5</span>
-        <span>CSS3</span>
-        <span>JavaScript</span>
-        <span>Fetch API</span>
-        <span>Git &amp; GitHub</span>
-        <span>GitHub Pages</span>
-        <span>Web Accessibility</span>
-      </div>
-    </section>
-
-    <section>
-      <h2>Course Projects</h2>
-
-      <div class="project">
-        <h3>LifeOS (Team Project)</h3>
-        <p>A personal life-management web app built with my team.</p>
-        <a href="https://lkhamaa552.github.io/Web-programming/lifeos.html">View Live Site</a>
-        <a href="https://github.com/Lkhamaa552/Web-programming">View Repository</a>
-      </div>
-
-      <div class="project">
-        <h3>Book Search App</h3>
-        <p>Searches books with the Open Library API, deployed on GitHub Pages.</p>
-        <a href="https://lkhamaa552.github.io/webpro-book-search/">View Live Site</a>
-        <a href="https://github.com/Lkhamaa552/webpro-book-search">View Repository</a>
-      </div>
-
-      <div class="project">
-        <h3>Git &amp; Version Control</h3>
-        <p>Git exercises with branches, merging and a custom 404 page, published on GitHub Pages.</p>
-        <a href="https://lkhamaa552.github.io/webpro-w9/">View Live Site</a>
-        <a href="https://github.com/Lkhamaa552/webpro-w9">View Repository</a>
-      </div>
-    </section>
+  <!-- React renders the Skills and Projects sections into this div -->
+  <main id="root">
+    <noscript>Please turn on JavaScript to see my skills and projects.</noscript>
   </main>
 
   <footer>
-    <p>© 2026 Aranjmaa Lkhamaa · Made for the Web Programming course</p>
+    <p>© 2026 Aranjmaa Lkhamaa · Made for the Web Programming course · Built with React</p>
   </footer>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    // ---------- Data ----------
+    const skills = [
+      { name: "HTML5", note: "Semantic pages: header, main, section, labels and alt text." },
+      { name: "CSS3", note: "Flexbox, Grid, media queries and hover effects." },
+      { name: "JavaScript", note: "DOM, events, arrays (.map, .filter) and the Fetch API." },
+      { name: "React", note: "Components, props, children, useState, lists with key." },
+      { name: "Git & GitHub", note: "Commits, branches, merge and pushing to GitHub." },
+      { name: "GitHub Pages", note: "Publishing every project as a live website." },
+      { name: "Web Accessibility", note: "Lighthouse audits, color contrast and keyboard checks." }
+    ];
+
+    const projects = [
+      {
+        id: 1,
+        title: "LifeOS (Team Project)",
+        description: "A personal life-management web app built with my team.",
+        tech: ["HTML", "CSS", "JavaScript"],
+        live: "https://lkhamaa552.github.io/Web-programming/lifeos.html",
+        repo: "https://github.com/Lkhamaa552/Web-programming"
+      },
+      {
+        id: 2,
+        title: "Book Search App",
+        description: "Searches books with the Open Library API, deployed on GitHub Pages.",
+        tech: ["HTML", "CSS", "JavaScript", "API"],
+        live: "https://lkhamaa552.github.io/webpro-book-search/",
+        repo: "https://github.com/Lkhamaa552/webpro-book-search"
+      },
+      {
+        id: 3,
+        title: "Git & Version Control",
+        description: "Git exercises with branches, merging and a custom 404 page.",
+        tech: ["HTML", "CSS", "Git"],
+        live: "https://lkhamaa552.github.io/webpro-w9/",
+        repo: "https://github.com/Lkhamaa552/webpro-w9"
+      },
+      {
+        id: 4,
+        title: "Portfolio Gallery",
+        description: "A React app (Create React App) that shows my projects as cards with a tech filter.",
+        tech: ["React", "JavaScript", "CSS"],
+        live: "https://lkhamaa552.github.io/portfolio-gallery/",
+        repo: "https://github.com/Lkhamaa552/portfolio-gallery"
+      }
+    ];
+
+    // ---------- Components ----------
+
+    // One clickable skill tag
+    function SkillTag({ name, selected, onSelect }) {
+      return (
+        <button type="button" className="tag" aria-pressed={selected} onClick={() => onSelect(name)}>
+          {name}
+        </button>
+      );
+    }
+
+    // Skills section: click a skill to see what I can do with it
+    function Skills({ items }) {
+      const [active, setActive] = useState(null);
+      const current = items.find((s) => s.name === active);
+
+      // Click the same tag again to close the note
+      const toggle = (name) => setActive(active === name ? null : name);
+
+      return (
+        <section aria-labelledby="skills-title">
+          <h2 id="skills-title">Skills &amp; Technologies</h2>
+          <div className="tags">
+            {items.map((s) => (
+              <SkillTag key={s.name} name={s.name} selected={s.name === active} onSelect={toggle} />
+            ))}
+          </div>
+          <p className="skill-note" aria-live="polite">
+            {current ? <><strong>{current.name}:</strong> {current.note}</> : "Click a skill to see what I have practised with it."}
+          </p>
+        </section>
+      );
+    }
+
+    // One project, data comes in as props
+    function ProjectCard({ title, description, tech, live, repo }) {
+      return (
+        <article className="project">
+          <h3>{title}</h3>
+          <p>{description}</p>
+          <ul className="stack">
+            {tech.map((t) => <li key={t}>{t}</li>)}
+          </ul>
+          {live && <a href={live}>View Live Site</a>}
+          {repo && <a href={repo}>View Repository</a>}
+        </article>
+      );
+    }
+
+    // Projects section with a filter by technology
+    function Projects({ items }) {
+      const [filter, setFilter] = useState("All");
+      const options = ["All", ...new Set(items.flatMap((p) => p.tech))];
+      const visible = filter === "All" ? items : items.filter((p) => p.tech.includes(filter));
+
+      return (
+        <section aria-labelledby="projects-title">
+          <h2 id="projects-title">Course Projects</h2>
+          <div className="filters" role="group" aria-label="Filter projects by technology">
+            {options.map((o) => (
+              <button
+                key={o}
+                type="button"
+                className={o === filter ? "filter active" : "filter"}
+                aria-pressed={o === filter}
+                onClick={() => setFilter(o)}
+              >
+                {o}
+              </button>
+            ))}
+          </div>
+          <p className="count">Showing {visible.length} of {items.length} projects</p>
+          {visible.map((p) => (
+            <ProjectCard key={p.id} {...p} />
+          ))}
+        </section>
+      );
+    }
+
+    function App() {
+      return (
+        <>
+          <Skills items={skills} />
+          <Projects items={projects} />
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
 </body>
 </html>
