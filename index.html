@@ -43,6 +43,25 @@
 
     footer { text-align: center; color: #5F6E6A; font-size: 14px; margin-top: 30px; }
     @media (max-width: 600px) { body { padding: 20px 14px; } .photo { width: 110px; height: 110px; } }
+      /* Learning goals form (React form, Week 13) */
+    .goal-form { display: grid; gap: 12px; }
+    .goal-form label { font-weight: 600; display: block; margin-bottom: 4px; }
+    .goal-form input[type="text"], .goal-form input[type="number"], .goal-form select {
+      width: 100%; font: inherit; padding: 8px 12px; border: 1px solid #C9D8D4; border-radius: 10px; box-sizing: border-box;
+    }
+    .goal-form input[aria-invalid="true"] { border-color: #B3261E; background: #FFF8F8; }
+    .goal-form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .goal-form fieldset { border: 0; padding: 0; margin: 0; }
+    .goal-form .choice { display: inline-flex; gap: 6px; align-items: center; margin-right: 14px; font-weight: 400; }
+    .goal-form .err { color: #B3261E; font-size: 14px; margin: 4px 0 0; }
+    .goal-form .small { color: #5F6E6A; font-size: 13px; margin: 4px 0 0; text-align: right; }
+    .goal-form button, .goal-list button { font: inherit; font-weight: 600; padding: 8px 18px; border-radius: 999px; border: 1px solid #1E7466; background: #1E7466; color: #fff; cursor: pointer; justify-self: start; }
+    .goal-list { list-style: none; padding: 0; margin: 16px 0 0; }
+    .goal-list li { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid #E2E9E6; }
+    .goal-list .when { color: #5F6E6A; font-size: 13px; }
+    .goal-list button { background: #fff; color: #B3261E; border-color: #B3261E; padding: 2px 10px; }
+    .prio { font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: #E8F2EF; color: #1E7466; margin-left: 6px; }
+    @media (max-width: 600px) { .goal-form .row2 { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -191,11 +210,109 @@
       );
     }
 
+        // ---------- Week 13: a React form on my personal page ----------
+    // My learning goals: a controlled form with validation, saved in this browser
+    const GOAL_SKILLS = ["HTML", "CSS", "JavaScript", "React", "Git", "Accessibility"];
+    const EMPTY_GOAL = { text: "", skill: "", week: "", priority: "Medium" };
+
+    function GoalForm() {
+      const [form, setForm] = useState(EMPTY_GOAL);
+      const [errors, setErrors] = useState({});
+      const [goals, setGoals] = useState(() => {
+        try { return JSON.parse(localStorage.getItem("my-goals")) || []; } catch { return []; }
+      });
+
+      // Save the list every time it changes
+      React.useEffect(() => {
+        try { localStorage.setItem("my-goals", JSON.stringify(goals)); } catch { /* storage blocked */ }
+      }, [goals]);
+
+      // One handler for every field, using the input name
+      function handleChange(e) {
+        const { name, value } = e.target;
+        setForm((prev) => ({ ...prev, [name]: value }));
+      }
+
+      function validate() {
+        const found = {};
+        if (!form.text.trim()) found.text = "Please write your goal.";
+        else if (form.text.length > 60) found.text = "Keep it under 60 characters.";
+        if (!form.skill) found.skill = "Choose a skill.";
+        const week = Number(form.week);
+        if (!form.week || week < 1 || week > 16) found.week = "Week must be between 1 and 16.";
+        return found;
+      }
+
+      function handleSubmit(e) {
+        e.preventDefault();                      // no page reload
+        const found = validate();
+        setErrors(found);
+        if (Object.keys(found).length > 0) return;
+        setGoals((prev) => [...prev, { ...form, text: form.text.trim(), id: Date.now() }]);
+        setForm(EMPTY_GOAL);
+      }
+
+      return (
+        <section aria-labelledby="goals-title">
+          <h2 id="goals-title">My Learning Goals</h2>
+          <form className="goal-form" onSubmit={handleSubmit} noValidate>
+            <div>
+              <label htmlFor="goal-text">Goal</label>
+              <input id="goal-text" name="text" type="text" value={form.text} onChange={handleChange}
+                placeholder="e.g. Build a form with validation" aria-invalid={!!errors.text} />
+              <p className="small">{form.text.length} / 60</p>
+              {errors.text && <p className="err">{errors.text}</p>}
+            </div>
+            <div className="row2">
+              <div>
+                <label htmlFor="goal-skill">Skill</label>
+                <select id="goal-skill" name="skill" value={form.skill} onChange={handleChange} aria-invalid={!!errors.skill}>
+                  <option value="">Choose…</option>
+                  {GOAL_SKILLS.map((s) => <option key={s} value={s}>{s}</option>)}
+                </select>
+                {errors.skill && <p className="err">{errors.skill}</p>}
+              </div>
+              <div>
+                <label htmlFor="goal-week">By week (1–16)</label>
+                <input id="goal-week" name="week" type="number" min="1" max="16" value={form.week} onChange={handleChange} aria-invalid={!!errors.week} />
+                {errors.week && <p className="err">{errors.week}</p>}
+              </div>
+            </div>
+            <fieldset>
+              <legend style={{ fontWeight: 600 }}>Priority</legend>
+              {["High", "Medium", "Low"].map((p) => (
+                <label key={p} className="choice">
+                  <input type="radio" name="priority" value={p} checked={form.priority === p} onChange={handleChange} /> {p}
+                </label>
+              ))}
+            </fieldset>
+            <button type="submit">Add goal</button>
+          </form>
+
+          {goals.length === 0 ? (
+            <p className="count">No goals yet. Add your first one above.</p>
+          ) : (
+            <ul className="goal-list">
+              {goals.map((g) => (
+                <li key={g.id}>
+                  <div>
+                    {g.text}<span className="prio">{g.priority}</span>
+                    <div className="when">{g.skill} · by week {g.week}</div>
+                  </div>
+                  <button type="button" aria-label={"Remove goal " + g.text} onClick={() => setGoals(goals.filter((x) => x.id !== g.id))}>✕</button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      );
+    }
     function App() {
       return (
         <>
           <Skills items={skills} />
           <Projects items={projects} />
+                    <GoalForm />
         </>
       );
     }
